@@ -62,6 +62,7 @@ This tutorial outlines the implementation of on-premises Active Directory within
 <img src="https://github.com/user-attachments/assets/fdd7509e-dc89-4474-bf4b-fa0aa8b84e73"/>
 <img src="https://github.com/user-attachments/assets/fde43b77-dfbe-432c-9e16-8a1541871090"/>
 </p>
+<br />
 
 <p>
 5. Now we have to disable Windows firewall. Log into the DC-1 VM, right click the Start menu and select "Run". Type "wf.msc" in the prompt. Next, select "Windows Defender Firewall Properties" and turn off the firewall in Domain Profile, Private Profile, and Public Profile.
@@ -70,6 +71,7 @@ This tutorial outlines the implementation of on-premises Active Directory within
 <img src="https://github.com/user-attachments/assets/a8f8d41c-fc0c-4249-a6b7-608b33f5b35f"/>
 <img src="https://github.com/user-attachments/assets/c57039c5-0a41-43da-9fbd-0515543cd5ae"/>
 </p>
+<br />
 
 <p>
 6. Now we have to set cilent-1's DNS settings to DC-1's Private IP address. Select the cilent-1 VM, click on "Networking" then "Network settings", then select the "Network Interface / IP configuration". After that's done, select "DNS servers", click on "Custom" and insert DC-1's private IP address into the prompt. When that's done, restart cilent-1. 
@@ -78,6 +80,7 @@ This tutorial outlines the implementation of on-premises Active Directory within
 <img src="https://github.com/user-attachments/assets/80de0d3c-ca20-46f9-aaee-292b58a3911a"/>
 <img src="https://github.com/user-attachments/assets/2a782765-8dea-4f7d-aaa0-56da7d905276"/>
 </p>
+<br />
 
 <p>
 7. Once the cilent-1 VM is done restarting, log into it with the public IP address. When you've logged in, go into Powershell and ping DC-1 private IP address. If it was successful, it should look similiar to the images below. Using ipconfig /all, the private IP address should appear next to "DNS servers". 
@@ -97,6 +100,7 @@ This tutorial outlines the implementation of on-premises Active Directory within
 <img src="https://github.com/user-attachments/assets/06486060-b650-4134-a8ff-3ff1170496d9"/>
 <img src="https://github.com/user-attachments/assets/ac1ed104-3842-41b9-9da9-e5d6cb0037c9"/>
 </p>
+<br />
 
 <p>
 2. Now we have to set up a new forest. On the top right in the "Server Manager" application, click on the flag icon. In the "Deployment Configuration" column, type in a domain name in the "Root domain name" box (it can be anything, just make sure you remember it). For the sake of simplicity, use "mydomain.com". In the "Domain Controller Options", type a new password in the boxes. In "DNS Options", make sure the "Create DNS delegation" box is NOT checked. Once that's done, click Next until you're in "Prerequisites Check", then click install. When it's done installing, the VM will restart.
@@ -105,6 +109,7 @@ This tutorial outlines the implementation of on-premises Active Directory within
 <img src="https://github.com/user-attachments/assets/5e7cbbb5-d3ab-4456-a484-51472d52138a"/>
 <img src="https://github.com/user-attachments/assets/e084c47a-e401-4e3d-b484-a456ae030538"/>
 </p>
+<br />
 
 <p>
 3. When the VM is done restarting, log back in (NOTE: You must use the domain you chose along with the user name to log in. For example, instead of just the username "labuser", it is now "mydomain.com\labuser". Password remains the same). Open Active Directory Users and Computers, right click your domain, hover over "New" then select "Organizational Unit". Name the new OU "_EMPLOYEES" (make sure its typed out EXACTLY like that). Make another new OU and name it "_ADMINS". 
@@ -112,6 +117,7 @@ This tutorial outlines the implementation of on-premises Active Directory within
 <p>
 <img src="https://github.com/user-attachments/assets/d32ecc2a-8e2a-47c4-ab43-c4d138c519c2"/>
 </p>
+<br />
 
 <p>
 4. Right click "_ADMINS", hover over "New" then select "User". Name the new employee "Jane Doe" with the username "jane_admin" with the same password used when you created the virtual machine (for the sake of the demonstration, check the "password never expires" box). Once the user is finished, right click on it and select "Properties". Select "Member Of", click "Add" and type "domain admins" in the prompt. Click "Check Names" then apply it.  
@@ -121,10 +127,12 @@ This tutorial outlines the implementation of on-premises Active Directory within
 <img src="https://github.com/user-attachments/assets/3db6d07a-8ae0-4a5c-b654-6d5dba4a324c"/>
 <img src="https://github.com/user-attachments/assets/54582bee-9c78-4a41-bb5f-0dc55c2de9f6"/>
 </p>
+<br />
 
 <p>
 5. Log out of the DC-1 VM and log back in as "mydomain.com\jane_admin". Password remains the same.
 </p>
+<br />
 
 <p>
 6. Log into cilent-1 as the original local admin and connect it to the domain. Right click the Start menu and select System. Click "Rename this PC (advanced)" then select "Change". From there, select "Domain" and enter "mydomain.com". A pop-up will appear to enter a username and password. For username, enter "mydomain.com\jane_admin". Password remains the same. Once you do that, the VM must restart.
@@ -133,6 +141,7 @@ This tutorial outlines the implementation of on-premises Active Directory within
 <img src="https://github.com/user-attachments/assets/d107dc7b-8532-4eb1-a67c-4a3085d1526f"/>
 <img src="https://github.com/user-attachments/assets/7759571e-e95e-4185-bab2-4eb9b80a5665"/>
 </p>
+<br />
 
 <p>
 7. Return to the DC-1 VM and verify that cilent-1 shows up in the ADUC. To verify, go into Active Directory Users and Computers and click on "Computers". Cilent-1 should appear. Create a new OU, name it "_CLIENTS", and drag cilent-1 into there.
@@ -147,6 +156,7 @@ This tutorial outlines the implementation of on-premises Active Directory within
 <img src="https://github.com/user-attachments/assets/5b2b54e4-dd19-4eec-bdb7-70a236b6d3c5"/>
 <img src="https://github.com/user-attachments/assets/9b5c2cf2-5a23-4478-a836-34cb4abab948"/>
 </p>
+<br />
 
 <p>
 2. Now we will creating users using PowerShell. Log into DC-1 as jane_admin. Open PowerShell ISE and run it as administrator. Create a new file and paste the script into it (https://github.com/joshmadakor1/AD_PS/blob/master/Generate-Names-Create-Users.ps1). Run the script and notice the accounts being created (you can stop the script whenever you feel enough accounts have been created). 
@@ -154,6 +164,7 @@ This tutorial outlines the implementation of on-premises Active Directory within
 <p>
 <img src="https://github.com/user-attachments/assets/909a3ea5-6453-4cfb-ba28-4fb986802d7b"/>
 </p>
+<br />
 
 <p>
 3. Open ADUC and notice the accounts being added into the OU _EMPLOYEES. Choose any random account and attempt to log into cilent-1 with that account. The password by default is "Password1".
@@ -167,6 +178,7 @@ This tutorial outlines the implementation of on-premises Active Directory within
 <p>
 <img src="https://github.com/user-attachments/assets/02aa521a-c651-47d9-82b4-b2d5ee2c9ccd"/>
 </p>
+<br />
 
 <p>
 2. Next, expand the following: Computer Configuration > Policies > Windows Settings > Security Settings > Account Policies > Account Lockout Policy.
@@ -174,6 +186,7 @@ This tutorial outlines the implementation of on-premises Active Directory within
 <p>
 <img src="https://github.com/user-attachments/assets/8915d274-e975-434f-8d40-1476069271cc"/>
 </p>
+<br />
 
 <p>
 3. In the "Account Lockout Policy" settings, it displays multiple options that you can configure by double clicking them. For the sake of demonstration, double click "Account lockout duration" and set it to 30 minutes. The other settings will automatically configure themselves. It can look like the image below.
@@ -181,6 +194,7 @@ This tutorial outlines the implementation of on-premises Active Directory within
 <p>
 <img src="https://github.com/user-attachments/assets/5416c924-1946-46c0-a547-567cd5eed8df"/>
 </p>
+<br />
 
 <p>
 4. Log into cilent-1 as jane_admin. Open up command prompt, type gpupdate /force then press Enter. This will force the Group Policy to automatically update instead of waiting. The confirmation should look like the image below.
@@ -188,6 +202,7 @@ This tutorial outlines the implementation of on-premises Active Directory within
 <p>
 <img src="https://github.com/user-attachments/assets/020fcc18-b93f-4cb3-afeb-1b4f47d81bec"/>
 </p>
+<br />
 
 <p>
 5. Try logging into one of the accounts created but purposefully typing in the wrong password. Notice after a certain amount of times, the account will be locked in Active Directory. Find that account in ADUC, double click the user, and go to the "Account tab". From there, you can see an option to the unlock account. Check that box to unlock the account and try to log into that same account but with the correct password. 
@@ -195,6 +210,7 @@ This tutorial outlines the implementation of on-premises Active Directory within
 <p>
 <img src="https://github.com/user-attachments/assets/616d5d2c-8750-401a-b65d-79883163efb5"/>
 </p>
+<br />
 
 <p>
 6. You can also reset passwords or disable accounts in Active Directory. On the user account used in the previous step, right click that user and select "Reset Password". A popup will appear asking for the new password. To disable an account, right click a user account and select "Disable account". The disabled account will have a different icon than when it was enabled. To enable it, repeat the process and select "Enable account".
@@ -204,3 +220,4 @@ This tutorial outlines the implementation of on-premises Active Directory within
 <img src="https://github.com/user-attachments/assets/5903b254-89e1-460d-9634-f87133a1743d"/>
 <img src="https://github.com/user-attachments/assets/35e78ae2-cb44-4b6e-ae38-ecc5b0177b7e"/>
 </p>
+<br />
