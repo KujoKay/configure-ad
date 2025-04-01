@@ -156,11 +156,51 @@ This tutorial outlines the implementation of on-premises Active Directory within
 </p>
 
 <p>
-Open ADUC and notice the accounts being added into the OU _EMPLOYEES. Choose any random account and attempt to log into cilent-1 with that account. The password by default is "Password1".
+3. Open ADUC and notice the accounts being added into the OU _EMPLOYEES. Choose any random account and attempt to log into cilent-1 with that account. The password by default is "Password1".
 </p>
 <br />
 
 <h3 align="center">Group Policy and Managing Accounts</h3>
 <p>
+1. Log into DC-1 and right click the Start menu. Select Run and type "gpmc.msc" then press Enter. This will open the Group Policy Management Console. Once that's open, navigate to "Group Policy Objects", right click the existing group policy "Default Domain Policy" and select "Edit". 
+</p>
+<p>
+<img src="https://github.com/user-attachments/assets/02aa521a-c651-47d9-82b4-b2d5ee2c9ccd"/>
+</p>
 
+<p>
+2. Next, expand the following: Computer Configuration > Policies > Windows Settings > Security Settings > Account Policies > Account Lockout Policy.
+</p>
+<p>
+<img src="https://github.com/user-attachments/assets/8915d274-e975-434f-8d40-1476069271cc"/>
+</p>
+
+<p>
+3. In the "Account Lockout Policy" settings, it displays multiple options that you can configure by double clicking them. For the sake of demonstration, double click "Account lockout duration" and set it to 30 minutes. The other settings will automatically configure themselves. It can look like the image below.
+</p>
+<p>
+<img src="https://github.com/user-attachments/assets/5416c924-1946-46c0-a547-567cd5eed8df"/>
+</p>
+
+<p>
+4. Log into cilent-1 as jane_admin. Open up command prompt, type gpupdate /force then press Enter. This will force the Group Policy to automatically update instead of waiting. The confirmation should look like the image below.
+</p>
+<p>
+<img src="https://github.com/user-attachments/assets/020fcc18-b93f-4cb3-afeb-1b4f47d81bec"/>
+</p>
+
+<p>
+5. Try logging into one of the accounts created but purposefully typing in the wrong password. Notice after a certain amount of times, the account will be locked in Active Directory. Find that account in ADUC, double click the user, and go to the "Account tab". From there, you can see an option to the unlock account. Check that box to unlock the account and try to log into that same account but with the correct password. 
+</p>
+<p>
+<img src="https://github.com/user-attachments/assets/616d5d2c-8750-401a-b65d-79883163efb5"/>
+</p>
+
+<p>
+6. You can also reset passwords or disable accounts in Active Directory. On the user account used in the previous step, right click that user and select "Reset Password". A popup will appear asking for the new password. To disable an account, right click a user account and select "Disable account". The disabled account will have a different icon than when it was enabled. To enable it, repeat the process and select "Enable account".
+</p>
+<p>
+<img src="https://github.com/user-attachments/assets/13f8c4dc-3092-4e14-b576-4935cf7aee3b"/>
+<img src="https://github.com/user-attachments/assets/5903b254-89e1-460d-9634-f87133a1743d"/>
+<img src="https://github.com/user-attachments/assets/35e78ae2-cb44-4b6e-ae38-ecc5b0177b7e"/>
 </p>
