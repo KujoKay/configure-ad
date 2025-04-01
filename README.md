@@ -99,7 +99,7 @@ This tutorial outlines the implementation of on-premises Active Directory within
 </p>
 
 <p>
-2. Now we have to set up a new forest. On the top right in the "Server Manager" application, click on the flag icon. In the "Deployment Configuration" column, type in a domain name in the "Root domain name" box (it can be anything, just make sure you remember it). For the sake of simplicity, you can use "mydomain.com". In the "Domain Controller Options", type a new password in the boxes. In "DNS Options", make sure the "Create DNS delegation" box is NOT checked. Once that's done, click Next until you're in "Prerequisites Check", then click install. When it's done installing, the VM will restart.
+2. Now we have to set up a new forest. On the top right in the "Server Manager" application, click on the flag icon. In the "Deployment Configuration" column, type in a domain name in the "Root domain name" box (it can be anything, just make sure you remember it). For the sake of simplicity, use "mydomain.com". In the "Domain Controller Options", type a new password in the boxes. In "DNS Options", make sure the "Create DNS delegation" box is NOT checked. Once that's done, click Next until you're in "Prerequisites Check", then click install. When it's done installing, the VM will restart.
 </p>
 <p>
 <img src="https://github.com/user-attachments/assets/5e7cbbb5-d3ab-4456-a484-51472d52138a"/>
@@ -120,4 +120,47 @@ This tutorial outlines the implementation of on-premises Active Directory within
 <img src="https://github.com/user-attachments/assets/0e6e9c77-394a-4c9f-85a9-6f2b8f431bda"/>
 <img src="https://github.com/user-attachments/assets/3db6d07a-8ae0-4a5c-b654-6d5dba4a324c"/>
 <img src="https://github.com/user-attachments/assets/54582bee-9c78-4a41-bb5f-0dc55c2de9f6"/>
+</p>
+
+<p>
+5. Log out of the DC-1 VM and log back in as "mydomain.com\jane_admin". Password remains the same.
+</p>
+
+<p>
+6. Log into cilent-1 as the original local admin and connect it to the domain. Right click the Start menu and select System. Click "Rename this PC (advanced)" then select "Change". From there, select "Domain" and enter "mydomain.com". A pop-up will appear to enter a username and password. For username, enter "mydomain.com\jane_admin". Password remains the same. Once you do that, the VM must restart.
+</p>
+<p>
+<img src="https://github.com/user-attachments/assets/d107dc7b-8532-4eb1-a67c-4a3085d1526f"/>
+<img src="https://github.com/user-attachments/assets/7759571e-e95e-4185-bab2-4eb9b80a5665"/>
+</p>
+
+<p>
+7. Return to the DC-1 VM and verify that cilent-1 shows up in the ADUC. To verify, go into Active Directory Users and Computers and click on "Computers". Cilent-1 should appear. Create a new OU, name it "_CLIENTS", and drag cilent-1 into there.
+</p>
+<br />
+
+<h3 align="center">Creating Users with Powershell</h3>
+<p>
+1. Log into cilent-1 as mydomain.com\jane_admin. Once that's done, right click the Start menu and open System. Click on "Remote Desktop" and enable it. Next, click "Select users that can remotely access this PC". Click "Add" then type "domain users" in the box. 
+</p>
+<p>
+<img src="https://github.com/user-attachments/assets/5b2b54e4-dd19-4eec-bdb7-70a236b6d3c5"/>
+<img src="https://github.com/user-attachments/assets/9b5c2cf2-5a23-4478-a836-34cb4abab948"/>
+</p>
+
+<p>
+2. Now we will creating users using PowerShell. Log into DC-1 as jane_admin. Open PowerShell ISE and run it as administrator. Create a new file and paste the script into it (https://github.com/joshmadakor1/AD_PS/blob/master/Generate-Names-Create-Users.ps1). Run the script and notice the accounts being created (you can stop the script whenever you feel enough accounts have been created). 
+</p>
+<p>
+<img src="https://github.com/user-attachments/assets/909a3ea5-6453-4cfb-ba28-4fb986802d7b"/>
+</p>
+
+<p>
+Open ADUC and notice the accounts being added into the OU _EMPLOYEES. Choose any random account and attempt to log into cilent-1 with that account. The password by default is "Password1".
+</p>
+<br />
+
+<h3 align="center">Group Policy and Managing Accounts</h3>
+<p>
+
 </p>
