@@ -28,29 +28,29 @@ This tutorial outlines the implementation of on-premises Active Directory within
 <h2>Deployment and Configuration Steps</h2>
 
 <p>
+1. Create a resource group and name it "Active-Directory-Lab". Next, create a virtual network and name it "Active-Directory-VNet". Make sure they are both in the region.
+</p>
+<p>
 <img src="https://github.com/user-attachments/assets/829acfeb-f5fc-4070-a37c-b7911b10d183"/>
 <img src="https://github.com/user-attachments/assets/13f6ae21-cd2b-4ecc-af76-f4911a22e1ac"/>
 </p>
-<p>
-1. Create a resource group and name it "Active-Directory-Lab". Next, create a virtual network and name it "Active-Directory-VNet". Make sure they are both in the region.
-</p>
 <br />
 
+<p>
+2. Create a virtual machine and put it in "Active-Directory-Lab", name the VM "DC-1" and make sure it is in the same region as the resource group and virtual network. For image, select "Windows Server 2022 Datacenter". For size, select "Standard_D2s_v3 - 2 vcpus, 8 GiB memory". For the username and password, use anything that will be easy to remember. In the "Networking" tab, ensure the VM is connected to the "Active-Directory-VNet". Once that's done, click "Review + Create" then create the VM. 
+</p>
 <p>
 <img src="https://github.com/user-attachments/assets/650763ee-a7f9-4449-b751-ee9b2b6933a3"/>
 <img src="https://github.com/user-attachments/assets/e3f9a7bc-86ee-49cc-9803-74e3856c57a5"/>
 <img src="https://github.com/user-attachments/assets/eb4f338e-22af-4a8a-ae45-787095952e88"/>
 </p>
-<p>
-2. Create a virtual machine and put it in "Active-Directory-Lab", name the VM "DC-1" and make sure it is in the same region as the resource group and virtual network. For image, select "Windows Server 2022 Datacenter". For size, select "Standard_D2s_v3 - 2 vcpus, 8 GiB memory". For the username and password, use anything that will be easy to remember. In the "Networking" tab, ensure the VM is connected to the "Active-Directory-VNet". Once that's done, click "Review + Create" then create the VM. 
-</p>
 <br />
 
 <p>
-<img src="https://github.com/user-attachments/assets/744b9b2e-02e9-4193-98bf-2bfa5e84d6a4"/>
+3. Create another virutal machine but name this one "cilent-1". Make sure it's in the same region as the previous VM. For image, select "Windows 10 Pro, version 22H2". For size, select "Standard_D2s_v3 - 2vcpus, 8 GiB memory". Make sure to check the box under "Licensing" at the bottom of the page. Ensure the VM is connected to the "Active-Directory-VNet". 
 </p>
 <p>
-3. Create another virutal machine but name this one "cilent-1". Make sure it's in the same region as the previous VM. For image, select "Windows 10 Pro, version 22H2". For size, select "Standard_D2s_v3 - 2vcpus, 8 GiB memory". Make sure to check the box under "Licensing" at the bottom of the page. Ensure the VM is connected to the "Active-Directory-VNet". 
+<img src="https://github.com/user-attachments/assets/744b9b2e-02e9-4193-98bf-2bfa5e84d6a4"/>
 </p>
 <br />
 
